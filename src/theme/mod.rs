@@ -67,6 +67,7 @@ pub struct Theme {
 }
 
 impl Options {
+    #[must_use]
     pub fn to_theme(&self, isatty: bool) -> Theme {
         if self.use_colours == UseColours::Never
             || (self.use_colours == UseColours::Automatic && !isatty)
@@ -128,7 +129,7 @@ impl Definitions {
     /// Also returns if the `EZA_COLORS` variable should reset the existing file
     /// type mappings or not. The `reset` code needs to be the first one.
     fn parse_color_vars(&self, colours: &mut UiStyles) -> (ExtensionMappings, bool) {
-        use log::*;
+        use log::warn;
 
         let mut exts = ExtensionMappings::default();
 
@@ -315,7 +316,7 @@ impl FileStyle for FileTypes {
 #[cfg(unix)]
 impl render::BlocksColours for Theme {
     fn blocksize(&self, prefix: Option<number_prefix::Prefix>) -> Style {
-        use number_prefix::Prefix::*;
+        use number_prefix::Prefix::{Gibi, Giga, Kibi, Kilo, Mebi, Mega};
 
         #[rustfmt::skip]
         let style = match prefix {
@@ -329,7 +330,7 @@ impl render::BlocksColours for Theme {
     }
 
     fn unit(&self, prefix: Option<number_prefix::Prefix>) -> Style {
-        use number_prefix::Prefix::*;
+        use number_prefix::Prefix::{Gibi, Giga, Kibi, Kilo, Mebi, Mega};
 
         #[rustfmt::skip]
            let style = match prefix {
@@ -416,7 +417,7 @@ impl render::PermissionsColours for Theme {
 
 impl render::SizeColours for Theme {
     fn size(&self, prefix: Option<number_prefix::Prefix>) -> Style {
-        use number_prefix::Prefix::*;
+        use number_prefix::Prefix::{Gibi, Giga, Kibi, Kilo, Mebi, Mega};
 
         #[rustfmt::skip]
         return match prefix {
@@ -429,7 +430,7 @@ impl render::SizeColours for Theme {
     }
 
     fn unit(&self, prefix: Option<number_prefix::Prefix>) -> Style {
-        use number_prefix::Prefix::*;
+        use number_prefix::Prefix::{Gibi, Giga, Kibi, Kilo, Mebi, Mega};
 
         #[rustfmt::skip]
         return match prefix {
@@ -554,7 +555,7 @@ mod customs_test {
                     GlobPattern::Simple(h) => {
                         let mut simple_pats = h
                             .iter()
-                            .map(|(k, v)| (glob::Pattern::new(&format!("*.{}", k)).unwrap(), *v))
+                            .map(|(k, v)| (glob::Pattern::new(&format!("*.{k}")).unwrap(), *v))
                             .collect::<Vec<(glob::Pattern, Style)>>();
 
                         simple_pats.sort_by_key(|x| x.0.clone());

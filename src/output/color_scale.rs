@@ -85,6 +85,7 @@ impl ColorScaleInformation {
         }
     }
 
+    #[must_use]
     pub fn adjust_style(&self, mut style: Style, value: f32, range: Option<Extremes>) -> Style {
         if let (Some(fg), Some(range)) = (style.foreground, range) {
             let mut ratio = ((value - range.min) / (range.max - range.min)).clamp(0.0, 1.0);

@@ -10,6 +10,7 @@ use crate::fs::fields as f;
 use crate::output::cell::TextCell;
 
 impl f::Inode {
+    #[must_use]
     pub fn render(self, style: Style) -> TextCell {
         TextCell::paint(style, self.0.to_string())
     }

@@ -62,6 +62,7 @@ pub enum Type {
 }
 
 impl Type {
+    #[must_use]
     pub fn is_regular_file(self) -> bool {
         matches!(self, Self::File)
     }

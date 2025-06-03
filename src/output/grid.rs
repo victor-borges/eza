@@ -19,6 +19,7 @@ pub struct Options {
 }
 
 impl Options {
+    #[must_use]
     pub fn direction(self) -> Direction {
         if self.across {
             Direction::LeftToRight

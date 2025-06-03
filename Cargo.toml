@@ -6,7 +6,7 @@ description = "A modern replacement for ls"
 authors = ["Christina Sørensen <christina@cafkafk.com>"]
 categories = ["command-line-utilities"]
 edition = "2021"
-rust-version = "1.81.0"
+rust-version = "1.82.0"
 exclude = [
   "/docs/",
   "/devtools/",
@@ -29,7 +29,7 @@ readme = "README.md"
 homepage = "https://github.com/eza-community/eza"
 license = "EUPL-1.2"
 repository = "https://github.com/eza-community/eza"
-version = "0.21.3"
+version = "0.21.4"
 
 
 [package.metadata.deb]

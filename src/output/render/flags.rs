@@ -11,6 +11,7 @@ use crate::output::cell::TextCell;
 use crate::output::table::FlagsFormat;
 
 impl f::Flags {
+    #[must_use]
     pub fn render(self, style: Style, _format: FlagsFormat) -> TextCell {
         TextCell::paint(style, "-".to_string())
     }

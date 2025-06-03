@@ -43,6 +43,7 @@ pub enum DirAction {
 
 impl DirAction {
     /// Gets the recurse options, if this dir action has any.
+    #[must_use]
     pub fn recurse_options(self) -> Option<RecurseOptions> {
         match self {
             Self::Recurse(o) => Some(o),
@@ -51,6 +52,7 @@ impl DirAction {
     }
 
     /// Whether to treat directories as regular files or not.
+    #[must_use]
     pub fn treat_dirs_as_files(self) -> bool {
         match self {
             Self::AsFile => true,
@@ -74,6 +76,7 @@ pub struct RecurseOptions {
 
 impl RecurseOptions {
     /// Returns whether a directory of the given depth would be too deep.
+    #[must_use]
     pub fn is_too_deep(self, depth: usize) -> bool {
         match self.max_depth {
             None => false,

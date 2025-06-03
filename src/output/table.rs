@@ -11,7 +11,7 @@ use std::sync::{Mutex, MutexGuard};
 
 use chrono::prelude::*;
 
-use log::*;
+use log::debug;
 use std::sync::LazyLock;
 #[cfg(unix)]
 use uzers::UsersCache;
@@ -67,6 +67,7 @@ pub struct Columns {
 }
 
 impl Columns {
+    #[must_use]
     pub fn collect(&self, actually_enable_git: bool, git_repos: bool) -> Vec<Column> {
         let mut columns = Vec::with_capacity(4);
 
@@ -185,6 +186,7 @@ pub enum Alignment {
 impl Column {
     /// Get the alignment this column should use.
     #[cfg(unix)]
+    #[must_use]
     pub fn alignment(self) -> Alignment {
         #[allow(clippy::wildcard_in_or_patterns)]
         match self {
@@ -205,6 +207,7 @@ impl Column {
 
     /// Get the text that should be printed at the top, when the user elects
     /// to have a header row printed.
+    #[must_use]
     pub fn header(self) -> &'static str {
         match self {
             #[cfg(unix)]
@@ -288,6 +291,7 @@ pub enum TimeType {
 
 impl TimeType {
     /// Returns the text to use for a column’s heading in the columns output.
+    #[must_use]
     pub fn header(self) -> &'static str {
         match self {
             Self::Modified => "Date Modified",
@@ -421,6 +425,7 @@ pub struct Row {
 }
 
 impl<'a> Table<'a> {
+    #[must_use]
     pub fn new(
         options: &'a Options,
         git: Option<&'a GitCache>,
@@ -449,10 +454,12 @@ impl<'a> Table<'a> {
         }
     }
 
+    #[must_use]
     pub fn widths(&self) -> &TableWidths {
         &self.widths
     }
 
+    #[must_use]
     pub fn header_row(&self) -> Row {
         let cells = self
             .columns
@@ -591,6 +598,7 @@ impl<'a> Table<'a> {
         f::SubdirGitRepo::default()
     }
 
+    #[must_use]
     pub fn render(&self, row: Row) -> TextCell {
         let mut cell = TextCell::default();
 
@@ -628,6 +636,7 @@ impl Deref for TableWidths {
 }
 
 impl TableWidths {
+    #[must_use]
     pub fn zero(count: usize) -> Self {
         Self(vec![0; count])
     }
@@ -638,6 +647,7 @@ impl TableWidths {
         }
     }
 
+    #[must_use]
     pub fn total(&self) -> usize {
         self.0.len() + self.0.iter().sum::<usize>()
     }

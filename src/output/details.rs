@@ -72,7 +72,7 @@ use std::vec::IntoIter as VecIntoIter;
 use nu_ansi_term::Style;
 use rayon::iter::{IntoParallelRefIterator, ParallelIterator};
 
-use log::*;
+use log::{debug, trace};
 
 use crate::fs::dir_action::RecurseOptions;
 use crate::fs::feature::git::GitCache;
@@ -403,6 +403,7 @@ impl<'a> Render<'a> {
         }
     }
 
+    #[must_use]
     pub fn render_header(&self, header: TableRow) -> Row {
         Row {
             tree: TreeParams::new(TreeDepth::root(), false),
@@ -442,6 +443,7 @@ impl<'a> Render<'a> {
         }
     }
 
+    #[must_use]
     pub fn iterate_with_table(&'a self, table: Table<'a>, rows: Vec<Row>) -> TableIter<'a> {
         TableIter {
             tree_trunk: TreeTrunk::default(),
@@ -452,6 +454,7 @@ impl<'a> Render<'a> {
         }
     }
 
+    #[must_use]
     pub fn iterate(&'a self, rows: Vec<Row>) -> Iter {
         Iter {
             tree_trunk: TreeTrunk::default(),

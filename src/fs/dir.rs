@@ -12,7 +12,7 @@ use std::io;
 use std::path::{Path, PathBuf};
 use std::slice::Iter as SliceIter;
 
-use log::*;
+use log::info;
 
 use crate::fs::File;
 
@@ -50,6 +50,7 @@ impl Dir {
 
     /// Produce an iterator of IO results of trying to read all the files in
     /// this directory.
+    #[must_use]
     pub fn files<'dir, 'ig>(
         &'dir self,
         dots: DotFilter,
@@ -71,11 +72,13 @@ impl Dir {
     }
 
     /// Whether this directory contains a file with the given path.
+    #[must_use]
     pub fn contains(&self, path: &Path) -> bool {
         self.contents.iter().any(|p| p.path().as_path() == path)
     }
 
     /// Append a path onto the path specified by this directory.
+    #[must_use]
     pub fn join(&self, child: &Path) -> PathBuf {
         self.path.join(child)
     }

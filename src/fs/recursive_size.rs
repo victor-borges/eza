@@ -37,6 +37,7 @@ impl RecursiveSize {
     /// assert_eq!(x.is_none(), false);
     /// ```
     #[inline]
+    #[must_use]
     pub const fn is_none(&self) -> bool {
         matches!(*self, Self::None)
     }
@@ -53,6 +54,7 @@ impl RecursiveSize {
     /// assert_eq!(RecursiveSize::Some(2, 3).unwrap_bytes_or(1), 2);
     /// ```
     #[inline]
+    #[must_use]
     pub const fn unwrap_bytes_or(self, default: u64) -> u64 {
         match self {
             Self::Some(bytes, _blocks) => bytes,
